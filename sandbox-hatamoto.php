@@ -160,4 +160,19 @@ public function wp_enqueue_scripts()
 
 } // end class Sandbox_Hatamoto
 
+add_shortcode( 'twitter', 'twitter_shortcode' );
+function twitter_shortcode( $p, $content ) {
+	$content = str_replace( "@", '', $content );
+
+	if ( !preg_match( "/^[0-9a-z_]{1,15}$/i", $content ) ) {
+		return;
+	}
+
+	return sprintf(
+		'<a href="https://twitter.com/%s">@%s</a>',
+		esc_attr( $content ),
+		esc_html( $content )
+	);
+}
+
 // EOF
